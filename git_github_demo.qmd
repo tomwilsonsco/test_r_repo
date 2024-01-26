@@ -8,31 +8,41 @@ execute:
 project:
    output-dir: "reports"
 ---
+
 # Setup tasks
+
 ## Git Bash
 
-When you open Git Bash on Windows it should be opening in a home directory, e.g. on SCOTS `C:\Users\<user id>\`\
-On Windows AWB, seemed to be opening in S:
+When you open Git Bash on Windows it should be opening in a home directory, e.g. this might typically be: `C:\Users\<user id>`  
+
+On Windows AWB, however, Git Bash seemed to be opening in S:
 
 Set a Windows user environment variable of `HOME=C:\Users\<user id>` To change this.
 
 ## Git Config
 
-We want to make sure our GitHub username and GitHub email are stored in our local config file -- this ensures that when you commit and push changes to GitHub they are properly recorded against your GitHub username for tracking etc. git config
+We want to make sure our GitHub username and GitHub email are stored in our local config file -- this ensures that when you commit and push changes to GitHub they are properly recorded against your GitHub username.
 
 ```{bash}
 # Check the git config contents
 git config --list
 
-# Check which global git config file is being used
+# Can also double check which global git config file is being used
 git config --list -- show-origin
 
+#Then set user.name and user.email 
+git config --global user.name "GitHub username"
+git config --global user.email "your_email@gov.scot"
 ```
 
 # Git Branches
-These examples are kept relatively simple by assuming we have a main branch in the repository by default and child working branches created from main. In production systems it is common to have a development or dev branch which people create their working branches from and so main is more projected. Using a dev branch is not necessary if just getting familiar with these workflows.
+
+The following branching workflow examples and descriptions are kept relatively simple by assuming we have a main branch in the repository by default and child working branches created from main. 
+
+In production systems it is common to have a development or dev branch which people create their working branches from. This means main is more protected. However, using a dev branch is certainly not necessary when just getting familiar with git branching workflows.
 
 ## Git Branches - Basic commands
+
 ```{bash}
 # Show existing local branches
 git branch
@@ -51,14 +61,14 @@ git commit -m "checker function"
 # push the local change into the remote new-multiplier-fn branch
 git push
 ```
-Once all required changes have been made in the branch, at this point I would suggest opening a GitHub Pull Request, requesting to merge the changes into main. This gives a GitHub web interface where you might ask others to review the changes.  
 
-Once you are happy with the changes in the Pull Request you can use the Pull Request interface in GitHub to merge them into main. Then you simply need to switch to main locally, pull the changes down and optionally delete the local branch under which you made the changes.  
+Once all required changes have been made in the branch, at this point I would suggest opening a [GitHub Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests), which requests to merge the changes into main. This gives a GitHub web interface where you might ask others to review the changes you have made under the branch.
 
-**Remember locally you will need to git pull the changes that have been merged into main after merging the Pull Request, if you use this method**. It will be necessary to do this before making a new branch from main for further edits.
- 
+Once you are happy with the changes in the Pull Request you can use the Pull Request interface in GitHub to merge them into main. You then simply need to switch to main locally, pull the changes down from GitHub and optionally delete the local branch under which you made the changes.
+
+**Remember locally to git pull the changes that have been merged into main in the remote after merging the Pull Request**. It is very much recommended to make sure your local main is up to date with the remote, before making a new branch for the next task.
+
 It is not strictly necessary to use a GitHub Pull Request to merge a branch and update the remote (e.g. GitHub hosted repository). For reference these are commands which could be used instead.
-
 
 ```{bash}
 # Switch back to main branch (after ensuring all changes in working branch have been committed)
@@ -76,33 +86,42 @@ git push
 # Delete branch from the remote (can just do this in GitHub browser too)
 git push --delete origin check-type-fn
 ```
-Whether a Pull Request is used or not it is a good idea to delete the branch in locally if it is no longer required.
 
 ## Delete local branch
-use -D instead of -d if there are unmerged changes you want to delete the branch
+
+Whether a Pull Request is used or not, it is a good idea to delete the branch locally when it is no longer required.
+
+use -D instead of -d in this command if there are un-merged changes and you still want to delete the branch.
+
 ```{bash}
 git branch -d check-type-fn
 
 ```
 
 # Common issues
+
 ## 1. Trying to switch branches locally when uncommitted changes have been made.
+
 ### Option 1. Stage and commit the changes. You might not always want to do this however.
 
-### Option 2. Undo the changes you have made locally as you want to discard them:
+### Option 2. Undo the changes you have made locally, as you want to discard them:
+
 ```{bash}
-# use git status to see the uncommitted changes
+# use git status to see the files with uncommitted changes
 git status
-# If you want to discard changes you have made to a file before staging and committing them use git checkout filename
+# If you want to discard changes you have made to a file before staging and committing them use git checkout filename for example:
 git checkout functions/my_subtracter.R
 ```
+
 ### Option 3. Stash the changes so they are not lost. You can switch branches and come back to them later.
+
 # use git stash to save them
-git stash
-# then use git checkout to switch to another branch, e.g this might be main branch
-git checkout main
-# then do what ever need to in main before switching back to working branch
-git checkout my-test
+```{bash}
+git stash 
+# then use git checkout to switch to another branch, e.g this might be main branch 
+git checkout main 
+# then do what ever need to in main before switching back to working branch 
+git checkout my-test 
 # then git stash pop to bring back saved, uncommitted changes
 git stash pop
 # you can see them with git status and decide whether to stage and commit, keep working on them etc
@@ -110,12 +129,20 @@ git status
 ```
 
 ## 2. A merge conflict when you try to merge branches.
-Happens on merging when same lines of code changed in parent branch and child branch since child branch was created or parent was last merged into it.
 
-Can resolve in R Studio by editing the code or in GitHub Pull Request. The problem with resolving in the browser is you might miss syntax issues created by editing it.
+A Git merge conflict occurs when two branches you are trying to merge both have changes in the same part of the same file, and Git cannot automatically determine how to combine these changes.
 
-Which ever way, when editing the code to make it correct, remove all lines with:  
-`<<<<<<<`
-`=======`
-`>>>>>>>`
-stage and commit after fixing all conflicts.
+One example is if the same lines of code have been edited, but differently. Another example is if some lines of code were edited under one branch, but those lines were deleted in the other branch.
+
+When a conflict occurs, Git will pause the merge process and mark the conflicting areas in the code within the affected files. The markers you will see are:
+
+- `<<<<<<<` Indicates the start of the conflicting area and presents the changes from the current branch.  
+- `=======` Separates the conflicting changes between the two branches.
+- `>>>>>>>` Indicates the end of the conflicting area and presents the changes from the branch being merged.
+
+You can resolve the conflicts in R Studio by editing the code, or directly in a GitHub Pull Request. The problem with resolving in the browser as part of a Pull Request is you might miss syntax issues created when editing the code.
+
+Which ever way, when editing the code to make it correct, remove all lines with:
+`<<<<<<<` `=======` `>>>>>>>` then stage and commit after fixing the conflicts. This will then mean the merge is complete.
+
+
