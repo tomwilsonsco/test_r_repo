@@ -4,6 +4,7 @@ my_subtractor <- function(x, subtract=10) {
   # subtract val from vector
   # oh no
   # oh deary me
+  # what is it
   x - subtract
   }
 }

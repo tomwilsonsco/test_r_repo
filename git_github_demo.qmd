@@ -100,7 +100,28 @@ git branch -d check-type-fn
 
 # Common issues
 
-## 1. Trying to switch branches locally when uncommitted changes have been made.
+
+
+## 1. A merge conflict when you try to merge branches.
+
+A Git merge conflict occurs when two branches you are trying to merge both have changes in the same part of the same file, and Git cannot automatically determine how to combine these changes.
+
+One example is if the same lines of code have been edited, but differently. Another example is if some lines of code were edited under one branch, but those lines were deleted in the other branch.
+
+When a conflict occurs, Git will pause the merge process and mark the conflicting areas in the code within the affected files. The markers you will see are:
+
+- `<<<<<<<` Indicates the start of the conflicting area and presents the changes from the current branch.  
+- `=======` Separates the conflicting changes between the two branches.
+- `>>>>>>>` Indicates the end of the conflicting area and presents the changes from the branch being merged.
+
+You can resolve the conflicts in R Studio by editing the code, or directly in a GitHub Pull Request. The problem with resolving in the browser as part of a Pull Request is you might miss syntax issues created when editing the code.
+
+Which ever way, when editing the code to make it correct, remove all lines with:
+`<<<<<<<` `=======` `>>>>>>>` then stage and commit after fixing the conflicts. This will then mean the merge is complete.
+
+## 2. Trying to switch branches locally when uncommitted changes have been made.
+
+This does not always happen when you switch branches with uncommitted changes. It depends on the changes you've made and those that exist in the branch you are switching to. 
 
 ### Option 1. Stage and commit the changes. You might not always want to do this however.
 
@@ -127,22 +148,4 @@ git stash pop
 # you can see them with git status and decide whether to stage and commit, keep working on them etc
 git status
 ```
-
-## 2. A merge conflict when you try to merge branches.
-
-A Git merge conflict occurs when two branches you are trying to merge both have changes in the same part of the same file, and Git cannot automatically determine how to combine these changes.
-
-One example is if the same lines of code have been edited, but differently. Another example is if some lines of code were edited under one branch, but those lines were deleted in the other branch.
-
-When a conflict occurs, Git will pause the merge process and mark the conflicting areas in the code within the affected files. The markers you will see are:
-
-- `<<<<<<<` Indicates the start of the conflicting area and presents the changes from the current branch.  
-- `=======` Separates the conflicting changes between the two branches.
-- `>>>>>>>` Indicates the end of the conflicting area and presents the changes from the branch being merged.
-
-You can resolve the conflicts in R Studio by editing the code, or directly in a GitHub Pull Request. The problem with resolving in the browser as part of a Pull Request is you might miss syntax issues created when editing the code.
-
-Which ever way, when editing the code to make it correct, remove all lines with:
-`<<<<<<<` `=======` `>>>>>>>` then stage and commit after fixing the conflicts. This will then mean the merge is complete.
-
 
