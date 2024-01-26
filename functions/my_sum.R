@@ -1,3 +1,3 @@
-my_function <- function(x){
+my_sum <- function(x) {
   sum(x)
 }
