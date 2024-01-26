@@ -1,0 +1,28 @@
+---
+title: "Git and GitHub Demo"
+format: html
+editor: visual
+execute: 
+   eval: false
+output-dir: "reports"
+---
+
+## Git Bash
+
+When you open Git Bash on Windows it should be opening in a home directory, e.g. on SCOTS `C:\Users\<user id>\`\
+On Windows AWB, seemed to be opening in S:
+
+Set user environment variable of `HOME= C:\Users\<user id>` To change this.
+
+## Git Config
+
+We want to make sure our GitHub username and GitHub email are stored in our local config file -- this ensures that when you commit and push changes to GitHub they are properly recorded against your GitHub username for tracking etc. git config
+
+```{bash}
+# Check the git config contents
+git config --list
+
+# Check which global git config file is being used
+git config --list -- show-origin
+
+```
