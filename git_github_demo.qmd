@@ -110,4 +110,12 @@ git status
 ```
 
 ## 2. A merge conflict when you try to merge branches.
-This can be easier to deal with within a Pull Request.
+Happens on merging when same lines of code changed in parent branch and child branch since child branch was created or parent was last merged into it.
+
+Can resolve in R Studio by editing the code or in GitHub Pull Request. The problem with resolving in the browser is you might miss syntax issues created by editing it.
+
+Which ever way, when editing the code to make it correct, remove all lines with:  
+`<<<<<<<`
+`=======`
+`>>>>>>>`
+stage and commit after fixing all conflicts.
