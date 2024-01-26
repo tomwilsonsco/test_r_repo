@@ -38,15 +38,15 @@ These examples are kept relatively simple by assuming we have a main branch in t
 git branch
 
 # Create and checkout a new branch
-git checkout -b new-multiplier-fn
+git checkout -b check-type-fn
 
 # Send the new branch to the remote
-git push -u origin new-multiplier-fn
+git push -u origin check-type-fn
 
 # make a change e.g. create a new fn file in functions dir, stage and commit
-touch functions/my_multiplier.R
-git add functions/my_multiplier.R
-git commit -m "multiplier function"
+touch functions/my_checker.R
+git add functions/my_checker.R
+git commit -m "checker function"
 
 # push the local change into the remote new-multiplier-fn branch
 git push
@@ -68,20 +68,20 @@ git checkout main
 git pull
 
 # merge new-multiplier-fn into main locally
-git merge new-multiplier-fn
+git merge check-type-fn
 
 # then push the changes merged into main to the remote
 git push
 
 # Delete branch from the remote (can just do this in GitHub browser too)
-git push --delete origin new-multiplier-fn
+git push --delete origin check-type-fn
 ```
 Whether a Pull Request is used or not it is a good idea to delete the branch in locally if it is no longer required.
 
 ## Delete local branch
-use -D instead of -d if there are unmerged changes you want to delete
+use -D instead of -d if there are unmerged changes you want to delete the branch
 ```{bash}
-git branch -d new-multiplier-fn
+git branch -d check-type-fn
 
 ```
 
