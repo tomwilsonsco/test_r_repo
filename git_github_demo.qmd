@@ -136,8 +136,8 @@ git checkout functions/my_subtracter.R
 
 ### Option 3. Stash the changes so they are not lost. You can switch branches and come back to them later.
 
-# use git stash to save them
 ```{bash}
+# use git stash to save them
 git stash 
 # then use git checkout to switch to another branch, e.g this might be main branch 
 git checkout main 
