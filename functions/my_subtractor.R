@@ -1,3 +1,5 @@
-my_subtractor <- function(x, subtract=10) {
-  x - subtract
+my_subtractor <- function(x, subtract = 10) {
+  if (is.numeric(x)) {
+    x - subtract
+  }
 }
