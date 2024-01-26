@@ -4,7 +4,9 @@ format: html
 editor: visual
 execute: 
    eval: false
-output-dir: "reports"
+   engine: knitr
+project:
+   output-dir: "reports"
 ---
 
 ## Git Bash
