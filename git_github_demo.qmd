@@ -8,13 +8,13 @@ execute:
 project:
    output-dir: "reports"
 ---
-
+# Setup tasks
 ## Git Bash
 
 When you open Git Bash on Windows it should be opening in a home directory, e.g. on SCOTS `C:\Users\<user id>\`\
 On Windows AWB, seemed to be opening in S:
 
-Set user environment variable of `HOME= C:\Users\<user id>` To change this.
+Set a Windows user environment variable of `HOME=C:\Users\<user id>` To change this.
 
 ## Git Config
 
@@ -28,3 +28,85 @@ git config --list
 git config --list -- show-origin
 
 ```
+
+# Git Branches
+These examples are kept relatively simple by assuming we have a main branch in the repository by default and child working branches created from main. In production systems it is common to have a development or dev branch which people create their working branches from and so main is more projected. Using a dev branch is not necessary if just getting familiar with these workflows.
+
+## Git Branches - Basic commands
+```{bash}
+# Show existing local branches
+git branch
+
+# Create and checkout a new branch
+git checkout -b new-multiplier-fn
+
+# Send the new branch to the remote
+git push -u origin new-multiplier-fn
+
+# make a change e.g. create a new fn file in functions dir, stage and commit
+touch functions/my_multiplier.R
+git add functions/my_multiplier.R
+git commit -m "multiplier function"
+
+# push the local change into the remote new-multiplier-fn branch
+git push
+```
+Once all required changes have been made in the branch, at this point I would suggest opening a GitHub Pull Request, requesting to merge the changes into main. This gives a GitHub web interface where you might ask others to review the changes.  
+
+Once you are happy with the changes in the Pull Request you can use the Pull Request interface in GitHub to merge them into main. Then you simply need to switch to main locally, pull the changes down and optionally delete the local branch under which you made the changes.  
+
+**Remember locally you will need to git pull the changes that have been merged into main after merging the Pull Request, if you use this method**. It will be necessary to do this before making a new branch from main for further edits.
+ 
+It is not strictly necessary to use a GitHub Pull Request to merge a branch and update the remote (e.g. GitHub hosted repository). For reference these are commands which could be used instead.
+
+
+```{bash}
+# Switch back to main branch
+git checkout main
+
+# Make sure your local main branch is up to date by pulling
+git pull
+
+# merge new-multiplier-fn into main locally
+git merge new-multiplier-fn
+
+# then push the changes merged into main to the remote
+git push
+
+# Delete branch from the remote (can just do this in GitHub browser too)
+git push --delete origin new-multiplier-fn
+```
+Whether a Pull Request is used or not it is a good idea to delete the branch in locally if it is no longer required.
+
+## Delete local branch
+use -D instead of -d if there are unmerged changes you want to delete
+```{bash}
+git branch -d new-multiplier-fn
+
+```
+
+# Two common issues
+## 1. Trying to switch branches locally when uncommitted changes have been made.
+### Option 1. Stage and commit the changes. You might not always want to do this however.
+
+### Option 2. Undo the changes you have made locally as you want to discard them:
+```{bash}
+# use git status to see the uncommitted changes
+git status
+# If you want to discard changes you have made to a file before staging and committing them use git checkout filename
+git checkout functions/my_subtracter.R
+```
+### Option 3. Stash the changes so they are not lost. You can switch branches and come back to them later.
+# use git stash to save them
+git stash
+# then use git checkout to switch to another branch, e.g this might be main branch
+git checkout main
+# then do what ever need to in main before switching back to working branch
+git checkout my-test
+# then git stash pop to bring back saved, uncommitted changes
+git stash pop
+# you can see them with git status and decide whether to stage and commit, keep working on them etc
+git status
+```
+
+## 2. A merge conflict occurs when you try to merge branches.
