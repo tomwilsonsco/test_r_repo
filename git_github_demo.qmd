@@ -61,7 +61,7 @@ It is not strictly necessary to use a GitHub Pull Request to merge a branch and 
 
 
 ```{bash}
-# Switch back to main branch
+# Switch back to main branch (after ensuring all changes in working branch have been committed)
 git checkout main
 
 # Make sure your local main branch is up to date by pulling
@@ -85,7 +85,7 @@ git branch -d new-multiplier-fn
 
 ```
 
-# Two common issues
+# Common issues
 ## 1. Trying to switch branches locally when uncommitted changes have been made.
 ### Option 1. Stage and commit the changes. You might not always want to do this however.
 
@@ -109,4 +109,5 @@ git stash pop
 git status
 ```
 
-## 2. A merge conflict occurs when you try to merge branches.
+## 2. A merge conflict when you try to merge branches.
+This can be easier to deal with within a Pull Request.
