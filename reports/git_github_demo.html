@@ -202,8 +202,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="common-issues" class="level1">
 <h1>Common issues</h1>
+<section id="a-merge-conflict-when-you-try-to-merge-branches." class="level2">
+<h2 class="anchored" data-anchor-id="a-merge-conflict-when-you-try-to-merge-branches.">1. A merge conflict when you try to merge branches.</h2>
+<p>A Git merge conflict occurs when two branches you are trying to merge both have changes in the same part of the same file, and Git cannot automatically determine how to combine these changes.</p>
+<p>One example is if the same lines of code have been edited, but differently. Another example is if some lines of code were edited under one branch, but those lines were deleted in the other branch.</p>
+<p>When a conflict occurs, Git will pause the merge process and mark the conflicting areas in the code within the affected files. The markers you will see are:</p>
+<ul>
+<li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> Indicates the start of the conflicting area and presents the changes from the current branch.<br>
+</li>
+<li><code>=======</code> Separates the conflicting changes between the two branches.</li>
+<li><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> Indicates the end of the conflicting area and presents the changes from the branch being merged.</li>
+</ul>
+<p>You can resolve the conflicts in R Studio by editing the code, or directly in a GitHub Pull Request. The problem with resolving in the browser as part of a Pull Request is you might miss syntax issues created when editing the code.</p>
+<p>Which ever way, when editing the code to make it correct, remove all lines with: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> <code>=======</code> <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> then stage and commit after fixing the conflicts. This will then mean the merge is complete.</p>
+</section>
 <section id="trying-to-switch-branches-locally-when-uncommitted-changes-have-been-made." class="level2">
-<h2 class="anchored" data-anchor-id="trying-to-switch-branches-locally-when-uncommitted-changes-have-been-made.">1. Trying to switch branches locally when uncommitted changes have been made.</h2>
+<h2 class="anchored" data-anchor-id="trying-to-switch-branches-locally-when-uncommitted-changes-have-been-made.">2. Trying to switch branches locally when uncommitted changes have been made.</h2>
+<p>This does not always happen when you switch branches with uncommitted changes. It depends on the changes you’ve made and those that exist in the branch you are switching to.</p>
 <section id="option-1.-stage-and-commit-the-changes.-you-might-not-always-want-to-do-this-however." class="level3">
 <h3 class="anchored" data-anchor-id="option-1.-stage-and-commit-the-changes.-you-might-not-always-want-to-do-this-however.">Option 1. Stage and commit the changes. You might not always want to do this however.</h3>
 </section>
@@ -234,20 +249,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># you can see them with git status and decide whether to stage and commit, keep working on them etc</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="a-merge-conflict-when-you-try-to-merge-branches." class="level2">
-<h2 class="anchored" data-anchor-id="a-merge-conflict-when-you-try-to-merge-branches.">2. A merge conflict when you try to merge branches.</h2>
-<p>A Git merge conflict occurs when two branches you are trying to merge both have changes in the same part of the same file, and Git cannot automatically determine how to combine these changes.</p>
-<p>One example is if the same lines of code have been edited, but differently. Another example is if some lines of code were edited under one branch, but those lines were deleted in the other branch.</p>
-<p>When a conflict occurs, Git will pause the merge process and mark the conflicting areas in the code within the affected files. The markers you will see are:</p>
-<ul>
-<li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> Indicates the start of the conflicting area and presents the changes from the current branch.<br>
-</li>
-<li><code>=======</code> Separates the conflicting changes between the two branches.</li>
-<li><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> Indicates the end of the conflicting area and presents the changes from the branch being merged.</li>
-</ul>
-<p>You can resolve the conflicts in R Studio by editing the code, or directly in a GitHub Pull Request. The problem with resolving in the browser as part of a Pull Request is you might miss syntax issues created when editing the code.</p>
-<p>Which ever way, when editing the code to make it correct, remove all lines with: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> <code>=======</code> <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> then stage and commit after fixing the conflicts. This will then mean the merge is complete.</p>
-</section>
 </section>
 
 </main>
