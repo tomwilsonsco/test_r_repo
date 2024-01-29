@@ -8,6 +8,7 @@ execute:
 project:
    output-dir: "reports"
 ---
+These reference notes were written for a demo on git branches and GitHub Pull Requests in January 2024.
 
 # Setup tasks
 
