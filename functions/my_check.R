@@ -1,6 +1,6 @@
 my_check <- function(x){
-  # this is a test comment
-  if (! class(x) == "numeric"){
+  # using is.numeric
+  if (! is.numeric(x)){
     stop("input must be numeric")
   }
 }
