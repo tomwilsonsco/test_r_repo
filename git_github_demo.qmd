@@ -116,6 +116,30 @@ You can resolve the conflicts in R Studio by editing the code, or directly in a 
 
 Which ever way, when editing the code to make it correct, remove all lines with: `<<<<<<<` `=======` `>>>>>>>` then stage and commit after fixing the conflicts. This will then mean the merge is complete.
 
+This is how a conflict might look within some demo R code:
+```{r eval=FALSE}
+my_check <- function(x){
+  # this is a test comment I have added
+<<<<<<< HEAD
+  # a better method
+  if (! is.numeric(class)){
+=======
+  # this is another comment
+  if (! class(x) == "numeric"){
+>>>>>>> main
+    stop("input must be numeric")
+  }
+}
+```
+We want to clean this up, decide which lines to keep and remove all conflict markers. After fixing the conflicts above under the working branch it might look like below. We would then stage and commit these fix changes and if resolving this locally, push them.
+```{r eval=FALSE}
+my_check <- function(x){
+  # this is a test comment I have added
+  if (! is.numeric(class)){
+    stop("input must be numeric")
+  }
+}
+```
 ## 2. Trying to switch branches locally when uncommitted changes have been made.
 
 This does not always happen when you switch branches with uncommitted changes. It depends on the changes you've made and those that exist in the branch you are switching to.
